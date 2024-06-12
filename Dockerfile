@@ -49,4 +49,4 @@ RUN pnpm install
 EXPOSE $PORT
 
 # Start the application
-CMD ["pm2-runtime", "start", "your_app_entry_point.js"]
+CMD ["pm2-runtime", "start", "index.js"]
