@@ -1,0 +1,8 @@
+
+{
+  "name": "bot",
+  "description": "HEROKU",
+  "repository": "https://github.com/ivan-mln/jmk45",
+  "logo": "https://www.frm.rf.gd/Logo_FRM-picsay.png",
+  "stack": "container"
+ }
