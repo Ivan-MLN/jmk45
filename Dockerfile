@@ -1,7 +1,7 @@
 FROM node:latest
 
 # Set working directory
-WORKDIR /app
+WORKDIR /root/bot
 
 # Install necessary packages
 RUN apt-get update && \
