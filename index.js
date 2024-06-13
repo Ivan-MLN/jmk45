@@ -18,7 +18,6 @@ const webp = require("node-webpmux");
 const path = require("path");
 const ff = require("fluent-ffmpeg");
 const cheerio = require("cheerio");
-const express = require("express");
 const readline = require("readline");
 const NodeCache = require("node-cache")
 const msgRetryCounterCache = new NodeCache()
