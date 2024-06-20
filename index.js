@@ -170,6 +170,42 @@ if (from == "status@broadcast") return sock.readMessages([m.key])
                 case "tes": 
 return;
 break
+case "ffstalk":
+case "ffinfo":
+if (!q) return sock.sendText(from, "Input user ID", { quoted: msg })
+var info = await (await axios.get("https://www.public.freefireinfo.site/api/info/sg/" + q + "?key=deannolimit")).data
+sock.sendText(from,`┌ 👤 ACCOUNT BASIC INFO
+├─ Name: ${info["Account Name"]}
+├─ UID: ${info["Account UID"]}
+├─ Level: ${info["Account Level"]} (Exp: ${info["Account XP"]})
+├─ Region: ${info["Account Region"]}
+├─ Likes: ${info["Account Likes"]}
+├─ Honor Score: ${info["Account Honor Score"]}
+├─ Title: ${info["Equipped Title"]}
+└─ Bio: ${info["Account Signature"]}
+
+┌ 🎮 ACCOUNT ACTIVITY
+├─ Fire Pass: ${info["Account Booyah Pass"]}
+├─ Current BP Badges: ${info["Account Booyah Pass Badges"]}
+├─ BR Rank: ${info["BR Rank Points"]}
+├─ CS Points: ${info["CS Rank Points"]}
+├─ Created At: ${info["Account Create Time (GMT 0530)"]}
+└─ Last Login: ${info["Account Last Login (GMT 0530)"]}
+
+┌ 🐾 PET DETAILS
+├─ Equipped?: ${info.Equipped.Pet.Information.Selected ? "Yes" : "No"}
+├─ Pet Name: ${info.Equipped.Pet.Information.Pet.Name}
+├─ Pet Type: ${info.Equipped.Pet.Information.Pet.Type}
+└─ Pet Level: ${info.Equipped.Pet.Information.Pet.Level}
+
+┌ 🛡️ GUILD INFO
+├─ Guild Name: ${info.Guild.Information.Guild.Name}
+├─ Guild ID: ${info.Guild.Information.Guild.ID}
+├─ Guild Level: ${info.Guild.Information.Guild.Level}
+└─ Live Members: ${info.Guild.Information.Guild.Current.Members}
+`.trim();
+}, { quoted: msg })
+break
 case "tourl":
 sock.reply(from, await upload(await m.quoted.download()), msg)
 break
