@@ -175,7 +175,7 @@ case "ffinfo":
     if (!q) return await sock.sendText(from, "Input user ID", { quoted: msg });
     var info = await (await axios.get("https://www.public.freefireinfo.site/api/info/sg/" + q + "?key=deannolimit")).data;
 
-    await sock.sendText(from,`
+    await sock.sendText(from, `
     ┌ 👤 ACCOUNT BASIC INFO
     ├─ Name: ${info["Account Name"] || "N/A"}
     ├─ UID: ${info["Account UID"] || "N/A"}
@@ -195,16 +195,16 @@ case "ffinfo":
     └─ Last Login: ${info["Account Last Login (GMT 0530)"] || "N/A"}
 
     ┌ 🐾 PET DETAILS
-    ├─ Equipped?: ${info.Equipped?.Pet?.Information?.Selected ? "Yes" : "No"}
-    ├─ Pet Name: ${info.Equipped?.Pet?.Information?.Pet?.Name || "N/A"}
-    ├─ Pet Type: ${info.Equipped?.Pet?.Information?.Pet?.Type || "N/A"}
-    └─ Pet Level: ${info.Equipped?.Pet?.Information?.Pet?.Level || "N/A"}
+    ├─ Equipped?: ${info["Equipped Pet Information"]?.["Selected?"] ? "Yes" : "No"}
+    ├─ Pet Name: ${info["Equipped Pet Information"]?.["Pet Name"] || "N/A"}
+    ├─ Pet Type: ${info["Equipped Pet Information"]?.["Pet Type"] || "N/A"}
+    └─ Pet Level: ${info["Equipped Pet Information"]?.["Pet Level"] || "N/A"}
 
     ┌ 🛡️ GUILD INFO
-    ├─ Guild Name: ${info.Guild?.Information?.Guild?.Name || "N/A"}
-    ├─ Guild ID: ${info.Guild?.Information?.Guild?.ID || "N/A"}
-    ├─ Guild Level: ${info.Guild?.Information?.Guild?.Level || "N/A"}
-    └─ Live Members: ${info.Guild?.Information?.Guild?.Current?.Members || "N/A"}
+    ├─ Guild Name: ${info["Guild Information"]?.["Guild Name"] || "N/A"}
+    ├─ Guild ID: ${info["Guild Information"]?.["Guild ID"] || "N/A"}
+    ├─ Guild Level: ${info["Guild Information"]?.["Guild Level"] || "N/A"}
+    └─ Live Members: ${info["Guild Information"]?.["Guild Current Members"] || "N/A"}
     `.trim(), { quoted: msg });
 
     break;
