@@ -172,40 +172,42 @@ return;
 break
 case "ffstalk":
 case "ffinfo":
-if (!q) return sock.sendText(from, "Input user ID", { quoted: msg })
-var info = await (await axios.get("https://www.public.freefireinfo.site/api/info/sg/" + q + "?key=deannolimit")).data
-sock.sendText(from,`┌ 👤 ACCOUNT BASIC INFO
-├─ Name: ${info["Account Name"]}
-├─ UID: ${info["Account UID"]}
-├─ Level: ${info["Account Level"]} (Exp: ${info["Account XP"]})
-├─ Region: ${info["Account Region"]}
-├─ Likes: ${info["Account Likes"]}
-├─ Honor Score: ${info["Account Honor Score"]}
-├─ Title: ${info["Equipped Title"]}
-└─ Bio: ${info["Account Signature"]}
+    if (!q) return await sock.sendText(from, "Input user ID", { quoted: msg });
+    var info = await (await axios.get("https://www.public.freefireinfo.site/api/info/sg/" + q + "?key=deannolimit")).data;
 
-┌ 🎮 ACCOUNT ACTIVITY
-├─ Fire Pass: ${info["Account Booyah Pass"]}
-├─ Current BP Badges: ${info["Account Booyah Pass Badges"]}
-├─ BR Rank: ${info["BR Rank Points"]}
-├─ CS Points: ${info["CS Rank Points"]}
-├─ Created At: ${info["Account Create Time (GMT 0530)"]}
-└─ Last Login: ${info["Account Last Login (GMT 0530)"]}
+    await sock.sendText(from,`
+    ┌ 👤 ACCOUNT BASIC INFO
+    ├─ Name: ${info["Account Name"] || "N/A"}
+    ├─ UID: ${info["Account UID"] || "N/A"}
+    ├─ Level: ${info["Account Level"] || "N/A"} (Exp: ${info["Account XP"] || "N/A"})
+    ├─ Region: ${info["Account Region"] || "N/A"}
+    ├─ Likes: ${info["Account Likes"] || "N/A"}
+    ├─ Honor Score: ${info["Account Honor Score"] || "N/A"}
+    ├─ Title: ${info["Equipped Title"] || "N/A"}
+    └─ Bio: ${info["Account Signature"] || "N/A"}
 
-┌ 🐾 PET DETAILS
-├─ Equipped?: ${info.Equipped.Pet.Information.Selected ? "Yes" : "No"}
-├─ Pet Name: ${info.Equipped.Pet.Information.Pet.Name}
-├─ Pet Type: ${info.Equipped.Pet.Information.Pet.Type}
-└─ Pet Level: ${info.Equipped.Pet.Information.Pet.Level}
+    ┌ 🎮 ACCOUNT ACTIVITY
+    ├─ Fire Pass: ${info["Account Booyah Pass"] || "N/A"}
+    ├─ Current BP Badges: ${info["Account Booyah Pass Badges"] || "N/A"}
+    ├─ BR Rank: ${info["BR Rank Points"] || "N/A"}
+    ├─ CS Points: ${info["CS Rank Points"] || "N/A"}
+    ├─ Created At: ${info["Account Create Time (GMT 0530)"] || "N/A"}
+    └─ Last Login: ${info["Account Last Login (GMT 0530)"] || "N/A"}
 
-┌ 🛡️ GUILD INFO
-├─ Guild Name: ${info.Guild.Information.Guild.Name}
-├─ Guild ID: ${info.Guild.Information.Guild.ID}
-├─ Guild Level: ${info.Guild.Information.Guild.Level}
-└─ Live Members: ${info.Guild.Information.Guild.Current.Members}
-`.trim();
-}, { quoted: msg })
-break
+    ┌ 🐾 PET DETAILS
+    ├─ Equipped?: ${info.Equipped?.Pet?.Information?.Selected ? "Yes" : "No"}
+    ├─ Pet Name: ${info.Equipped?.Pet?.Information?.Pet?.Name || "N/A"}
+    ├─ Pet Type: ${info.Equipped?.Pet?.Information?.Pet?.Type || "N/A"}
+    └─ Pet Level: ${info.Equipped?.Pet?.Information?.Pet?.Level || "N/A"}
+
+    ┌ 🛡️ GUILD INFO
+    ├─ Guild Name: ${info.Guild?.Information?.Guild?.Name || "N/A"}
+    ├─ Guild ID: ${info.Guild?.Information?.Guild?.ID || "N/A"}
+    ├─ Guild Level: ${info.Guild?.Information?.Guild?.Level || "N/A"}
+    └─ Live Members: ${info.Guild?.Information?.Guild?.Current?.Members || "N/A"}
+    `.trim(), { quoted: msg });
+
+    break;
 case "tourl":
 sock.reply(from, await upload(await m.quoted.download()), msg)
 break
