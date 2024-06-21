@@ -49,5 +49,5 @@ RUN pnpm install
 EXPOSE 80 8888 8080 443 5130 5131 5132 5133 5134 5135 3306
 
 # Start the application
-CMD mkdir .tmp
+CMD ["mkdir", ".tmp"]
 CMD ["pm2-runtime", "start", "index.js"]
